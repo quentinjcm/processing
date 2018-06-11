@@ -5,12 +5,11 @@ void setup(){
   s = new Splat();
 }
 
-
 void draw(){
   background(255);
   s.display();
 }
 
 void keyPressed(){
-  s.subdivide(7);
+  s.draw_subdivide(1);
 }
