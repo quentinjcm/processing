@@ -1,0 +1,3 @@
+# Wiggler
+
+A copy of the wiggler demo, I learn best copying it out line by line to make my self pay attention and go through it properly...
