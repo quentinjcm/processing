@@ -8,16 +8,16 @@ Its a bit slow and could definately do with some work to get more interesting re
 
 ![](output/out_0012.png)
 
-![](output/screen-0003.tif)
+![](output/screen-0003.png)
 
-![](output/screen-0004.tif)
+![](output/screen-0004.png)
 
-![](output/screen-0005.tif)
+![](output/screen-0005.png)
 
-![](output/screen-0006.tif)
+![](output/screen-0006.png)
 
-![](output/screen-0008.tif)
+![](output/screen-0008.png)
 
-![](output/screen-0010.tif)
+![](output/screen-0010.png)
 
-![](output/screen-0011.tif)
+![](output/screen-0011.png)
