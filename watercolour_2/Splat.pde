@@ -18,8 +18,8 @@ class Splat{
     radius = 200;
     shapes = new ArrayList<PShape>();
     
-    col_a = new PVector(230, 10, 10);
-    col_b = new PVector(50, 10, 230);
+    col_a = new PVector(50, 100, 150);
+    col_b = new PVector(50, 10, 10);
     
     //initial vertex positions and weights
     base_verts = new ArrayList<Vert>();
@@ -43,7 +43,7 @@ class Splat{
       for(int sd = base_subdivs; sd < base_subdivs + draw_subdivs; sd++){
           temp_verts = subdivide(temp_verts, sd);
       }
-      col = PVector.lerp(col_a, col_b, i/num_splats);
+      col = PVector.lerp(col_b, col_a, i/float(num_splats));
       vertsToShape(temp_verts, col);
     }
   }
