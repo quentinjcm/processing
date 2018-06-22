@@ -5,16 +5,21 @@ class Splat{
   float x, y;                          //splat offset
   float radius;
   ArrayList<Vert> base_verts;       //base shape vertices
+  PVector col_a;
+  PVector col_b;
   
   Splat(){
     //some general variables
     x = width/2;
     y = height/2;
-    base_subdivs = 7;
-    draw_subdivs = 5;
+    base_subdivs = 5;
+    draw_subdivs = 7;
     num_splats = 100;
-    radius = 300;
+    radius = 200;
     shapes = new ArrayList<PShape>();
+    
+    col_a = new PVector(230, 10, 10);
+    col_b = new PVector(50, 10, 230);
     
     //initial vertex positions and weights
     base_verts = new ArrayList<Vert>();
@@ -31,13 +36,15 @@ class Splat{
       base_verts = subdivide(base_verts, sd);
     }
     
+    PVector col = new PVector();
     //creating the shapes
     for(int i = 0; i < num_splats; i++){
       ArrayList<Vert> temp_verts = duplicateBaseVerts();
       for(int sd = base_subdivs; sd < base_subdivs + draw_subdivs; sd++){
           temp_verts = subdivide(temp_verts, sd);
       }
-      vertsToShape(temp_verts);
+      col = PVector.lerp(col_a, col_b, i/num_splats);
+      vertsToShape(temp_verts, col);
     }
   }
   
@@ -49,10 +56,10 @@ class Splat{
     return temp_verts;
   }
   
-  void vertsToShape(ArrayList<Vert> verts){
+  void vertsToShape(ArrayList<Vert> verts, PVector col){
     PShape s = createShape(); 
     s.beginShape();
-    s.fill(230, 10, 10, 2);
+    s.fill(col.x, col.y, col.z, 2);
     s.noStroke();
     for (Vert v : verts){
       s.vertex(v.p.x, v.p.y);  

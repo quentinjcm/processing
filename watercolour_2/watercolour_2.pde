@@ -9,3 +9,7 @@ void draw(){
   background(240, 235, 225);
   s.display();
 }
+
+void keyPressed(){
+  saveFrame();
+}
