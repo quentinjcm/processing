@@ -22,9 +22,9 @@ void setup(){
   img_manatee.resize(width, height);
   img_index = 0;
   img_current = img_snail;
-  img_q_whale = quantizeMC(img_whale);
-  img_q_snail = quantizeMC(img_snail);
-  img_q_manatee = quantizeMC(img_manatee);
+  img_q_whale = quantizeOct(img_whale);
+  img_q_snail = quantizeOct(img_snail);
+  img_q_manatee = quantizeOct(img_manatee);
 }
 
 void draw(){
@@ -41,6 +41,11 @@ void keyPressed(){
     case 4: img_current = img_manatee; break;
     case 5: img_current = img_q_manatee; break;
   }
+}
+
+PImage quantizeOct(PImage img){
+  Octree o = new Octree(img.pixels);
+  return img;
 }
 
 PImage quantizeMC(PImage img){
