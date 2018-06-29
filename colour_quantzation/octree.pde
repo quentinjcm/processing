@@ -8,12 +8,15 @@ class Octree{
     }
   }
   
-  PVector[] quantize(int num_cols = 8){
+  PVector[] quantize(int num_cols){
     PVector[] colours = new PVector[num_cols]; 
-    
-    
-    
-    
     return colours;
   }
+  
+  int[] visualise(int depth){
+    int px = new int[255 * 255];
+  
+  }
+  
+  
 }

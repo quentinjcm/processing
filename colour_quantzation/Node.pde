@@ -1,4 +1,5 @@
 class Node{
+  int leaf;
   int limit;          //number of colours added before the node subdivides itself, ingerited from creating node
   Node parent;        //reference to the parent node
   Node[] children;    //references to the child nodes
@@ -8,6 +9,7 @@ class Node{
   int sum_count;      //the number of colours contained in this node
   
   Node(int l, Node p, PVector c, float s){
+    leaf = 1;
     limit = l;
     parent = p;
     centre = c;
@@ -15,7 +17,6 @@ class Node{
     children = new Node[8];
     sum_colour = new PVector(0, 0, 0);
     sum_count = 0;
-    println("node initilaised");
   }
 
   void addColour(int c){
@@ -30,6 +31,7 @@ class Node{
     
     // if node is full, add the colour to the relevant child
     if(sum_count > limit){
+      leaf = 0;
       int data[] = findChildData(cr, cg, cb);
       if(children[data[0]] == null){
         PVector new_centre = new PVector(centre.x + size/4 * data[1],
