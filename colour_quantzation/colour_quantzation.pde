@@ -22,9 +22,9 @@ void setup(){
   img_manatee.resize(width, height);
   img_index = 0;
   img_current = img_snail;
-  img_q_whale = quantizeOct(img_whale);
-  img_q_snail = quantizeOct(img_snail);
-  img_q_manatee = quantizeOct(img_manatee);
+  img_q_whale = quantizeMC(img_whale);
+  img_q_snail = quantizeMC(img_snail);
+  img_q_manatee = quantizeMC(img_manatee);
 }
 
 void draw(){
