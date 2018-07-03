@@ -1,7 +1,8 @@
 class VP_Cam{
-  PVector pos;
+  PVector initial;
   PVector origin;
   PVector up;
+  float ang_x, ang_y;
   
   int old_x, old_y;
   
@@ -9,29 +10,34 @@ class VP_Cam{
   float rot_speed;
 
   
-  VP_Cam(int px, int py, int pz, int ox, int oy, int oz, int ux, int uy, int uz, float ss, float rs){
-    pos = new PVector(px, py, pz);
-    origin = new PVector(ox, oy, oz);
-    up = new PVector(ux, uy, uz);
+  VP_Cam(float ax, float ay, float d, float ss, float rs){
+    initial = new PVector(0, 0, d);
+    origin = new PVector(0, 0, 0);
+    up = new PVector(0, 1, 0);
+    ang_x = ax;
+    ang_y = ay;
     scroll_speed = ss;
     rot_speed = rs;
   }
   
   void calc(){
+    float mx[] = M3_rotateX(ang_x);
+    float my[] = M3_rotateY(ang_y);
+    float rot[] = M3_mult(my, mx);
+    PVector pos = M3_mult(rot, initial);
+    PVector ori = M3_mult(rot, origin);
+    PVector u = M3_mult(rot, up);//by rotating the up I can go all the way around the cube :D
     camera(pos.x,    pos.y,    pos.z,
-           origin.x, origin.y, origin.z,
-           up.x,     up.y,     up.z);  
+           0,        0,        0,
+           u.x,      u.y,      u.z);  
   }
   
   void mouseWheel(MouseEvent event){
     float e = event.getCount() * scroll_speed;
-    PVector dir = PVector.sub(origin, pos);
-    dir.normalize();
-    dir.mult(e);
-    pos.add(dir);
+    initial.z += e;
   }
   
-  void mouseClicked(MouseEvent event){
+  void mouseMoved(MouseEvent event){
     old_x = event.getX();
     old_y = event.getY();
   }
@@ -39,29 +45,24 @@ class VP_Cam{
   void mouseDragged(MouseEvent event){
     int new_x = event.getX();
     int new_y = event.getY();
-  
-    if(new_x != old_x){
-      float ang_x = float(old_x - new_x) * rot_speed;
-      rotateY(ang_x);
+    int button = event.getButton();
+    if(button == LEFT){
+      //trying to fix axis flipping when rotating x too far, soooorrttooof working...
+      float clamped_x = abs(ang_x%PI);
+      float y_mult = 1;
+      if(clamped_x > PI/2){
+        y_mult = -1;
+      }
+      ang_y += float(old_x - new_x) * rot_speed * y_mult;
+      ang_x += float(new_y - old_y) * rot_speed;
     }
-    
+    else if(button == CENTER){
+      //this doesnt actually work and needs some tinkering.
+      origin.x += float(old_x - new_x);
+      origin.y += float(old_y - new_y);
+    }
     old_x = new_x;
     old_y = new_y;
   }
   
-  void rotateX(float angle){
-    float sa = sin(angle);
-    float ca = cos(angle);
-    pos.y = pos.y * ca - pos.z * sa;
-    pos.z = pos.y * sa + pos.z * ca;
-  }
-  
-  void rotateY(float angle){
-    float sa = sin(angle);
-    float ca = cos(angle);
-    pos.x = ((pos.x * ca) + (pos.z * sa));
-    pos.z = (-(pos.x * sa) + (pos.z * ca));
-    //println(pos);
-    //println(pos.mag());
-  }
 }
