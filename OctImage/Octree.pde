@@ -12,11 +12,4 @@ class Octree{
     PVector[] colours = new PVector[num_cols]; 
     return colours;
   }
-  /*
-  int[] visualise(int depth){
-    //int px = new int[255 * 255];
-  
-  }*/
-  
-  
 }

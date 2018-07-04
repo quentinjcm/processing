@@ -1,39 +1,47 @@
-VPCam c;
 PImage img_building;
 ArrayList<Cube> cubes;
+Viewport viewer;
 
 int RED   = 16;
 int GREEN = 8;
 int BLUE  = 0;
 
+
+
 void setup(){
   size(1024, 1024, P3D);
-  c = new VPCam(0, 0, 100, 5, 0.017);
   img_building = loadImage("building.jpg");
   Octree tree = new Octree(img_building.pixels, 25);
   cubes = new ArrayList<Cube>();
   treeToCubes(cubes, tree.root);
+  viewer = new Viewport();
 }
 
 void draw(){
   background(125);
-  c.calc();
+  //c.calc();
+  viewer.view();
   for(Cube c: cubes){
     c.drawCube();
   }
 }
 
 void mouseWheel(MouseEvent event){
-  c.mouseWheel(event);
+  viewer.mouseWheel(event);
 }
 
 void mouseDragged(MouseEvent event){
-  c.mouseDragged(event);
+  viewer.mouseDragged(event);
 }
 
 void mouseMoved(MouseEvent event){
-  c.mouseMoved(event);  
+  viewer.mouseMoved(event);  
 }
+
+void keyPressed(KeyEvent event){
+  viewer.keyPressed(event);
+}
+
 
 void treeToCubes(ArrayList<Cube> cubes, Node current_node){
   if(current_node.leaf == 1){
