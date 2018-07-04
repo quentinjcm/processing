@@ -90,6 +90,7 @@ class Viewport{
       case '7': current_camera = 6; break;
       case 'w': wireframe = wireframe == 0? 1 : 0; break;
       case 'h': cameras.get(current_camera).reset(); break;
+      case 's': save(name + ".png");
     }
   }
 }

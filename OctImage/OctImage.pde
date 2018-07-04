@@ -1,6 +1,8 @@
-PImage img_building;
+PImage img;
 ArrayList<Cube> cubes;
 Viewport viewer;
+
+String name = "spin";
 
 int RED   = 16;
 int GREEN = 8;
@@ -10,8 +12,8 @@ int BLUE  = 0;
 
 void setup(){
   size(1024, 1024, P3D);
-  img_building = loadImage("building.jpg");
-  Octree tree = new Octree(img_building.pixels, 25);
+  img = loadImage(name + ".jpg");
+  Octree tree = new Octree(img.pixels, 25);
   cubes = new ArrayList<Cube>();
   treeToCubes(cubes, tree.root);
   viewer = new Viewport();
