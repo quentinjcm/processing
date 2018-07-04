@@ -1,8 +1,9 @@
-class VP_Cam{
+class VPCam{
   PVector initial;
   PVector origin;
   PVector up;
   float ang_x, ang_y;
+  float fov;
   
   int old_x, old_y;
   
@@ -10,7 +11,7 @@ class VP_Cam{
   float rot_speed;
 
   
-  VP_Cam(float ax, float ay, float d, float ss, float rs){
+  VPCam(float ax, float ay, float d, float ss, float rs){
     initial = new PVector(0, 0, d);
     origin = new PVector(0, 0, 0);
     up = new PVector(0, 1, 0);
@@ -27,6 +28,7 @@ class VP_Cam{
     PVector pos = M3_mult(rot, initial);
     PVector ori = M3_mult(rot, origin);
     PVector u = M3_mult(rot, up);//by rotating the up I can go all the way around the cube :D
+    perspective(45, 1, 0.01, 1000);
     camera(pos.x,    pos.y,    pos.z,
            0,        0,        0,
            u.x,      u.y,      u.z);  

@@ -1,4 +1,4 @@
-VP_Cam c;
+VPCam c;
 PImage img_building;
 ArrayList<Cube> cubes;
 
@@ -8,7 +8,7 @@ int BLUE  = 0;
 
 void setup(){
   size(1024, 1024, P3D);
-  c = new VP_Cam(0, 0, 100, 5, 0.017);
+  c = new VPCam(0, 0, 100, 5, 0.017);
   img_building = loadImage("building.jpg");
   Octree tree = new Octree(img_building.pixels, 25);
   cubes = new ArrayList<Cube>();
