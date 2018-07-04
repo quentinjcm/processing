@@ -1,4 +1,3 @@
-//camera base class
 class Camera{
   void view(){}
   void mouseWheel(float incriment){}

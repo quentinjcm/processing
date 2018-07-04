@@ -1,4 +1,7 @@
 class Cube{
+  /*
+    a class for storing and drawing cubes at a given position, size and colour
+  */
   float px, py, pz;
   float size;
   float cr, cg, cb;
