@@ -21,9 +21,7 @@ class PerspCamera extends Camera{
   }
   
   void view(){
-    float mx[] = M3_rotateX(angle_x);
-    float my[] = M3_rotateY(angle_y);
-    float rot[] = M3_mult(my, mx);
+    float rot[] = getRotMatrix();
     PVector pos = M3_mult(rot, initial);
     PVector u = M3_mult(rot, up);//by rotating the up I can go all the way around the cube :D
     PVector offset = M3_mult(rot, screen_offset);
@@ -33,14 +31,24 @@ class PerspCamera extends Camera{
            u.x,      u.y,      u.z);  
   }
   
+  float[] getRotMatrix(){
+    float mx[] = M3_rotateX(angle_x);
+    float my[] = M3_rotateY(angle_y);
+    float rot[] = M3_mult(my, mx);
+    return rot;
+  }
+  
   void mouseWheel(float increment){
       initial.z += increment * SCROLL_SPEED;
   }
   
   void mouseDragged(float x_movement, float y_movement, int button){
     if(button == LEFT){
+      //flipping the x tumple direction if the camera is upsde down
+      float rot[] = getRotMatrix();
+      PVector u = M3_mult(rot, up);
       angle_x += y_movement * TUMBLE_SPEED;
-      angle_y += x_movement * TUMBLE_SPEED;  
+      angle_y += x_movement * TUMBLE_SPEED * (u.y<0? -1 : 1);  
     }
     else if(button == CENTER){
       screen_offset.x += x_movement * MOVE_SPEED;
@@ -85,8 +93,10 @@ class IsoCamera extends Camera{
   }
   
   void mouseDragged(float x_movement, float y_movement, int button){
-    offset.add(PVector.mult(right, x_movement*MOVE_SPEED)) ;
-    offset.sub(PVector.mult(up, y_movement*MOVE_SPEED));
+    if(button == LEFT){
+      offset.add(PVector.mult(right, x_movement*MOVE_SPEED)) ;
+      offset.sub(PVector.mult(up, y_movement*MOVE_SPEED));
+    }
   }
   
   void reset(){

@@ -16,38 +16,38 @@ class Cube{
     this.cb = cb;
   }
   
-  void drawCube(){
-    float v00 = px - size;
-    float v01 = py - size;
-    float v02 = pz - size;
+  void drawCube(float cube_scale){
+    float v00 = px - size * cube_scale;
+    float v01 = py - size * cube_scale;
+    float v02 = pz - size * cube_scale;
     
-    float v10 = px + size;
-    float v11 = py - size;
-    float v12 = pz - size;
+    float v10 = px + size * cube_scale;
+    float v11 = py - size * cube_scale;
+    float v12 = pz - size * cube_scale;
     
-    float v20 = px - size;
-    float v21 = py + size;
-    float v22 = pz - size;
+    float v20 = px - size * cube_scale;
+    float v21 = py + size * cube_scale;
+    float v22 = pz - size * cube_scale;
     
-    float v30 = px + size;
-    float v31 = py + size;
-    float v32 = pz - size;
+    float v30 = px + size * cube_scale;
+    float v31 = py + size * cube_scale;
+    float v32 = pz - size * cube_scale;
     
-    float v40 = px - size;
-    float v41 = py - size;
-    float v42 = pz + size;
+    float v40 = px - size * cube_scale;
+    float v41 = py - size * cube_scale;
+    float v42 = pz + size * cube_scale;
     
-    float v50 = px + size;
-    float v51 = py - size;
-    float v52 = pz + size;
+    float v50 = px + size * cube_scale;
+    float v51 = py - size * cube_scale;
+    float v52 = pz + size * cube_scale;
     
-    float v60 = px - size;
-    float v61 = py + size;
-    float v62 = pz + size;
+    float v60 = px - size * cube_scale;
+    float v61 = py + size * cube_scale;
+    float v62 = pz + size * cube_scale;
     
-    float v70 = px + size;
-    float v71 = py + size;
-    float v72 = pz + size;
+    float v70 = px + size * cube_scale;
+    float v71 = py + size * cube_scale;
+    float v72 = pz + size * cube_scale;
 
     beginShape(QUADS);
     fill(cr, cg, cb);

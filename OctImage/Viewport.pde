@@ -1,18 +1,21 @@
-float SCROLL_SPEED  = 5;
+float SCROLL_SPEED  = 10;
 float MOVE_SPEED    = 0.25;
 float TUMBLE_SPEED  = 0.017;
 
 class Viewport{
+  float cube_scale = 1;
   int old_mouse_x;
   int old_mouse_y;
-  int wireframe = 1;
+  int wireframe = 0;
+  ArrayList<Cube> cubes;
   
   
   ArrayList<Camera> cameras;
   int current_camera;
   
-  Viewport(){
+  Viewport(ArrayList<Cube> cubes){
     cameras = new ArrayList<Camera>();
+    this.cubes = cubes;
     
     PerspCamera pc = new PerspCamera();
     cameras.add(pc);
@@ -50,12 +53,17 @@ class Viewport{
     
   }
   
-  void view(){
+  void viewScene(){
     noStroke();
     if(wireframe == 1){
       stroke(0);
     }
+    pushMatrix();
     cameras.get(current_camera).view();  
+    for(Cube c: cubes){
+      c.drawCube(cube_scale);
+    }
+    popMatrix();
   }
   
   void mouseWheel(MouseEvent event){
@@ -77,6 +85,10 @@ class Viewport{
     cameras.get(current_camera).mouseDragged(dx, dy, button);
     old_mouse_y = new_mouse_y;
     old_mouse_x = new_mouse_x;
+    if(button == RIGHT){
+      cube_scale += dy / height;
+      cube_scale = constrain(cube_scale, 0, 1);
+    }
   }
   
   void keyPressed(KeyEvent event){

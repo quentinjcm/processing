@@ -2,7 +2,7 @@ PImage img;
 ArrayList<Cube> cubes;
 Viewport viewer;
 
-String name = "spin";
+String name = "skull";
 
 int RED   = 16;
 int GREEN = 8;
@@ -16,16 +16,18 @@ void setup(){
   Octree tree = new Octree(img.pixels, 25);
   cubes = new ArrayList<Cube>();
   treeToCubes(cubes, tree.root);
-  viewer = new Viewport();
+  viewer = new Viewport(cubes);
+  img.resize(200, 0);
+  
 }
 
 void draw(){
   background(125);
-  //c.calc();
-  viewer.view();
-  for(Cube c: cubes){
-    c.drawCube();
-  }
+  viewer.viewScene();
+  
+  pushMatrix();
+  image(img, 0, 0);
+  popMatrix();
 }
 
 void mouseWheel(MouseEvent event){
